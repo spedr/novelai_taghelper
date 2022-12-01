@@ -54,7 +54,11 @@
 <script>
     var tag1 = `<div class="list-group-item" ondblclick="this.contentEditable=true;this.className='list-group-item';" onblur="this.contentEditable=false;this.className='list-group-item';" contenteditable="false">Tag</div>`;
     var tag2 = `<div class="list-group-item" ondblclick="this.contentEditable=true;this.className='list-group-item';" onblur="this.contentEditable=false;this.className='list-group-item';" contenteditable="false">`;
+    var tag3 = `<input id="rid_` 
+    var tag4 = `" type="text" class="hide_rating" data-size="xs" ></div>`
     var text = "";
+    var last_rid = 0;
+
 
 
     // Simple list
@@ -66,7 +70,10 @@
     
     $(document).on('click', '.add-el', function(){
     var lst = $('#simpleList');
-    lst.append(tag1);
+    let to_append = tag2 + 'Tag' + tag3 + last_rid.toString() + tag4
+    lst.append(to_append);
+    initRating(last_rid, 0)
+    last_rid++;
     });
 
     $(document).on('click', '.copyclipboard', function(){
@@ -90,25 +97,51 @@
     var txt = $('#inputtxt');
     let txtvalue = txt[0].value;
     txt[0].value = ""
+    let stars = 0;
     
     split = txtvalue.split(',')
     text = "";
 
     for (let item of split){
+      text = "";
         if (item.charAt(0) == ' '){
             item = item.substring(1);
         }
         if (item.substring(item.length -1) == ' '){
             item = item.substring(0, item.length -1);
         }
-        text+='\n' + tag2 + item + '</div>'
+        stars = enclosedStr(item);
+        item = item.replace('{', '');
+        item = item.replace('}', '');
+
+        if(item != ''){
+          text+='\n' + tag2 + item + tag3 + last_rid.toString() + tag4;
+        }
+      //console.log(text);
+      //console.log(last_rid);
+      lst[0].innerHTML+= text;
+      console.log(text);
+      initRating(last_rid, stars);
+      last_rid++;
     }
 
-    lst[0].innerHTML+= text;
 
     });
 
+    /*
     $("#input-id").rating({
+    'containerClass': 'str_container',
+    'showCaption': false,
+    'keyboardEnabled': false,
+    'step': 0.5,
+    'stars': 10,
+    'size':'xs'});*/
+
+  function initRating(rid, star) {
+    console.log(rid);
+    console.log(star);
+    
+    $("#rid_" + rid.toString()).rating({
     'containerClass': 'str_container',
     'showCaption': false,
     'keyboardEnabled': false,
@@ -116,5 +149,18 @@
     'stars': 10,
     'size':'xs'});
 
+    $('#rid_' + rid.toString()).rating('update', star);
+  }
+
+  function enclosedStr(tag){
+    let count_start = 0;
+    let count_end = 0;
+    if (tag.startsWith("{") && tag.endsWith("}")){
+      count_start = (tag.match(/(?={)/g) || []).length;
+      count_end = (tag.match(/(?=})/g) || []).length;
+    }
+
+    return Math.min(count_start, count_end);
+  }
 
 </script>
