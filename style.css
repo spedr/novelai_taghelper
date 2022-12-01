@@ -1,0 +1,9 @@
+.dataitem{
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.dataentry{
+    position:fixed;
+    right: -20px;
+}
