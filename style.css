@@ -1,0 +1,7 @@
+.tagbutton{
+    border-color: #dfdfdf !important;
+}
+
+.tagitem{
+    flex-grow: 1;
+}

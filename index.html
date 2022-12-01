@@ -21,8 +21,6 @@
           <div class="col-sm">
             
             <div id="simpleList" class="list-group col">
-                <div class="list-group-item" ondblclick="this.contentEditable=true;this.className='list-group-item';" onblur="this.contentEditable=false;this.className='list-group-item';" contenteditable="false">Tag </div>
-                <div class="list-group-item" ondblclick="this.contentEditable=true;this.className='list-group-item';" onblur="this.contentEditable=false;this.className='list-group-item';" contenteditable="false">Tag</div>
             </div>
           </div>
           <div class="col-sm">
@@ -49,12 +47,11 @@
 </body>
 
 <script>
-    var tag1 = `<div class="list-group-item" ondblclick="this.contentEditable=true;this.className='list-group-item';" onblur="this.contentEditable=false;this.className='list-group-item';" contenteditable="false">Tag</div>`;
-    var tag2 = `<div class="list-group-item" ondblclick="this.contentEditable=true;this.className='list-group-item';" onblur="this.contentEditable=false;this.className='list-group-item';" contenteditable="false">`;
+    var tag1 = `<div class="d-flex"><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton minusbutton">-</button><li class="list-group-item d-inline-flex tagitem" ondblclick="this.contentEditable=true;this.className='list-group-item d-inline-flex tagitem';" onblur="this.contentEditable=false;this.className='list-group-item d-inline-flex tagitem';" contenteditable="false">Tag</li><button type="button" class="btn btn-outline-secondary tagbutton rounded-0 plusbutton">+</button></div>`;
+    var tag2 = `<div class="d-flex"><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton minusbutton">-</button><li class="list-group-item d-inline-flex tagitem" ondblclick="this.contentEditable=true;this.className='list-group-item d-inline-flex tagitem';" onblur="this.contentEditable=false;this.className='list-group-item d-inline-flex tagitem';" contenteditable="false">`;
+    var tag3 = `</li><button type="button" class="btn btn-outline-secondary tagbutton rounded-0 plusbutton">+</button></div>`;
     var text = "";
 
-
-    // Simple list
     let mysortable = Sortable.create(simpleList, { 
         ghostClass: 'blue-background-class',
         animation: 150,
@@ -76,9 +73,19 @@
     navigator.clipboard.writeText(text);
     });
 
+    $(document).on('click', '.plusbutton', function(){
+      var parentDiv = $(this).parent();
+      parentDiv[0].children[1].textContent = increasePriority(parentDiv[0].children[1].textContent);
+    });
+
+    $(document).on('click', '.minusbutton', function(){
+      var parentDiv = $(this).parent();
+      parentDiv[0].children[1].textContent = lowerPriority(parentDiv[0].children[1].textContent);
+    });
+
     $(document).on('click', '.cleartags', function(){
       var lst = $('#simpleList');
-    lst[0].innerHTML = "";
+      lst[0].innerHTML = "";
     });
 
 
@@ -98,12 +105,32 @@
         if (item.substring(item.length -1) == ' '){
             item = item.substring(0, item.length -1);
         }
-        text+='\n' + tag2 + item + '</div>'
+        if(item != ''){
+          text+='\n' + tag2 + item + tag3;
+        }
     }
 
     lst[0].innerHTML+= text;
 
     });
 
+
+    function increasePriority(mstr){
+      if (mstr.startsWith('[') && mstr.endsWith(']')){
+        mstr = mstr.slice(1, -1);
+      } else {
+        mstr = '{' + mstr + '}';
+      }
+      return mstr;
+    }
+
+    function lowerPriority(mstr){
+      if (mstr.startsWith('{') && mstr.endsWith('}')){
+        mstr = mstr.slice(1, -1);
+      } else {
+        mstr = '[' + mstr + ']';
+      }
+      return mstr;
+    }
 
 </script>
