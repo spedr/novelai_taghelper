@@ -1,0 +1,10 @@
+.str_container{
+    display: inline !important;
+    float: right;
+    font-size: 0px !important;
+}
+
+.hide_rating{
+    display: none;
+    visibility: hidden;
+}
