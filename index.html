@@ -105,6 +105,8 @@
         if (item.substring(item.length -1) == ' '){
             item = item.substring(0, item.length -1);
         }
+        item = item.replaceAll('_', ' ');
+
         if(item != ''){
           text+='\n' + tag2 + item + tag3;
         }
