@@ -68,7 +68,7 @@
     text = "";
 
     for (let item of lst[0].children){
-        text+=item.firstChild.textContent + ',';
+        text+=item.children[1].textContent + ',';
     }
     navigator.clipboard.writeText(text);
     });
