@@ -5,3 +5,11 @@
 .tagitem{
     flex-grow: 1;
 }
+
+.parentopaque{
+    opacity: 1;
+}
+
+.parenttransparent{
+    opacity: 0.4;
+}

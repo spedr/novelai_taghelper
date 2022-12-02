@@ -31,6 +31,9 @@
             <button type="button" class="cleartags btn btn-light" title="Clear all tags"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
             </svg></button>
+            <button type="button" class="savecontext btn btn-light" title="Save context of the current tags"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+              <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg></button>
             <div class="row">
                 <div class="input-group mb-3 mt-2">
                     <div class="input-group-prepend">
@@ -47,10 +50,19 @@
 </body>
 
 <script>
-    var tag1 = `<div class="d-flex"><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton minusbutton">-</button><li class="list-group-item d-inline-flex tagitem" ondblclick="this.contentEditable=true;this.className='list-group-item d-inline-flex tagitem';" onblur="this.contentEditable=false;this.className='list-group-item d-inline-flex tagitem';" contenteditable="false">Tag</li><button type="button" class="btn btn-outline-secondary tagbutton rounded-0 plusbutton">+</button></div>`;
-    var tag2 = `<div class="d-flex"><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton minusbutton">-</button><li class="list-group-item d-inline-flex tagitem" ondblclick="this.contentEditable=true;this.className='list-group-item d-inline-flex tagitem';" onblur="this.contentEditable=false;this.className='list-group-item d-inline-flex tagitem';" contenteditable="false">`;
+    var tag1 = `<div class="d-flex"><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton hidebtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+                <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
+              </svg></button><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton minusbutton">-</button><li class="list-group-item d-inline-flex tagitem" ondblclick="this.contentEditable=true;this.className='list-group-item d-inline-flex tagitem';" onblur="this.contentEditable=false;this.className='list-group-item d-inline-flex tagitem';" contenteditable="false">Tag</li><button type="button" class="btn btn-outline-secondary tagbutton rounded-0 plusbutton">+</button></div>`;
+    var tag2 = `<div class="d-flex"><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton hidebtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+                <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
+              </svg></button><button type="button" class="btn btn-outline-secondary btn-md rounded-0 tagbutton minusbutton">-</button><li class="list-group-item d-inline-flex tagitem" ondblclick="this.contentEditable=true;this.className='list-group-item d-inline-flex tagitem';" onblur="this.contentEditable=false;this.className='list-group-item d-inline-flex tagitem';" contenteditable="false">`;
     var tag3 = `</li><button type="button" class="btn btn-outline-secondary tagbutton rounded-0 plusbutton">+</button></div>`;
     var text = "";
+    set();
 
     let mysortable = Sortable.create(simpleList, { 
         ghostClass: 'blue-background-class',
@@ -67,25 +79,40 @@
     var lst = $('#simpleList');
     text = "";
 
+
     for (let item of lst[0].children){
-        text+=item.children[1].textContent + ',';
+      if (!item.classList.contains('parenttransparent')){
+        text+=item.children[2].textContent + ',';
+      }
     }
     navigator.clipboard.writeText(text);
     });
 
     $(document).on('click', '.plusbutton', function(){
       var parentDiv = $(this).parent();
-      parentDiv[0].children[1].textContent = increasePriority(parentDiv[0].children[1].textContent);
+      parentDiv[0].children[2].textContent = increasePriority(parentDiv[0].children[2].textContent);
     });
 
     $(document).on('click', '.minusbutton', function(){
       var parentDiv = $(this).parent();
-      parentDiv[0].children[1].textContent = lowerPriority(parentDiv[0].children[1].textContent);
+      parentDiv[0].children[2].textContent = lowerPriority(parentDiv[0].children[2].textContent);
     });
 
     $(document).on('click', '.cleartags', function(){
       var lst = $('#simpleList');
       lst[0].innerHTML = "";
+    });
+
+    $(document).on('click', '.savecontext', function(){
+      saveContext();
+    });
+
+    $(document).on('click', '.hidebtn', function(){
+      toggleDisable($(this).parent(), $(this));
+    });
+
+    $(document).on('click', '.enablebtn', function(){
+      toggleEnable($(this).parent(), $(this));
     });
 
 
@@ -116,7 +143,6 @@
 
     });
 
-
     function increasePriority(mstr){
       if (mstr.startsWith('[') && mstr.endsWith(']')){
         mstr = mstr.slice(1, -1);
@@ -134,5 +160,47 @@
       }
       return mstr;
     }
+
+  function saveContext() {
+    let tags = $('#simpleList')[0];
+    localStorage.setItem("html", tags.innerHTML);
+  }
+
+  
+  function set() {
+    let content = localStorage.getItem("html")
+    if(content) {
+      $('#simpleList')[0].innerHTML = content;
+    }
+  }
+
+  function toggleDisable(tag, child){
+    tag.removeClass("parentopaque");
+    tag.addClass('parenttransparent');
+
+    child.removeClass('hidebtn');
+    child.addClass('enablebtn');
+
+    child[0].innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+</svg>`
+  }
+
+  function toggleEnable(tag, child){
+    tag.removeClass("parenttransparent");
+    tag.addClass('parentopaque');
+
+    child.removeClass('enablebtn');
+    child.addClass('hidebtn');
+
+    child[0].innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+  <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+  <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+  <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
+</svg>`
+  }
+
+
 
 </script>
