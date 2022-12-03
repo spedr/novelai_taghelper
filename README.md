@@ -16,3 +16,4 @@ Add tags using either the textfield or the `+` button. Tags can be edited by dou
  - `<>`: Copies current taglist (ordered) to the clipboard. The output separates each tag is separated by `,` (comma) and replaces `_` (underscore) danbooru-style tag notation to ` ` (whitespace) characters.
  - `+` (at taglist): Raises tag priority -- encloses the tag with `{}` each time it is clicked. If the tag is enclosed by `[]`, it removes one pair of the square brackets instead.
  - `—`: Lowers tag priority -- encloses the tag with `[]` each time it is clicked. If the tag is enclosed by `{}`, it remove one pair of the curly brackets instead.
+  - `Hide/unhide`: Tags that are hidden will not be included in the clipboard export.
